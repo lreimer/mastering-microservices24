@@ -42,6 +42,12 @@ paths:
             application/json:
               schema:
                 type: string
+        "409":
+          description: Beer already exists
+          content:
+            application/json:
+              schema:
+                type: string
 
   /beers/{asin}:
     get:
@@ -60,6 +66,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Beer"
+        "404":
+          description: Beer not found
+          content:
+            application/json:
+              schema:
+                type: string
 
     put:
       summary: Update an existing beer
@@ -84,6 +96,18 @@ paths:
             application/json:
               schema:
                 type: string
+        "404":
+          description: Beer not found
+          content:
+            application/json:
+              schema:
+                type: string
+        "400":
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                type: string
 
     delete:
       summary: Delete a beer by ASIN
@@ -97,6 +121,12 @@ paths:
       responses:
         "200":
           description: Beer deleted successfully
+          content:
+            application/json:
+              schema:
+                type: string
+        "404":
+          description: Beer not found
           content:
             application/json:
               schema:
