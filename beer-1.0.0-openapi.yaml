@@ -1,0 +1,119 @@
+openapi: 3.1.0
+info:
+  title: Beer Service API
+  version: 1.0.0
+  description: API for managing beer data
+  contact:
+    name: M.-Leander Reimer
+    url: "https://github.com/lreimer"
+  license:
+    name: Apache 2.0
+    url: "https://www.apache.org/licenses/LICENSE-2.0.html"
+
+paths:
+  /beers:
+    get:
+      summary: Get all beers
+      operationId: getAllBeers
+      responses:
+        "200":
+          description: A list of beers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Beer"
+
+    post:
+      summary: Create a new beer
+      operationId: createBeer
+      requestBody:
+        description: Beer object to create
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Beer"
+      responses:
+        "201":
+          description: Beer created successfully
+          content:
+            application/json:
+              schema:
+                type: string
+
+  /beers/{asin}:
+    get:
+      summary: Get a single beer by ASIN
+      operationId: getBeer
+      parameters:
+        - name: asin
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Beer details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Beer"
+
+    put:
+      summary: Update an existing beer
+      operationId: updateBeer
+      parameters:
+        - name: asin
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Updated beer data
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Beer"
+      responses:
+        "200":
+          description: Beer updated successfully
+          content:
+            application/json:
+              schema:
+                type: string
+
+    delete:
+      summary: Delete a beer by ASIN
+      operationId: deleteBeer
+      parameters:
+        - name: asin
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Beer deleted successfully
+          content:
+            application/json:
+              schema:
+                type: string
+
+components:
+  schemas:
+    Beer:
+      type: object
+      properties:
+        asin:
+          type: string
+        name:
+          type: string
+        country:
+          type: string
+        abv:
+          type: number
+        brewery:
+          type: string
